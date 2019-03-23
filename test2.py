@@ -41,11 +41,10 @@ with open('symptoms_list.csv','a') as f:
     for x in range(5000):
         list1 = []
         word_text = []
-        #test_text = str(df8.values[x])#.lower()
         text1 = str(df8.values[x]).split(".")
         for i in text1:
             if(re.findall("no .*?",i) or re.findall("did not exhibit .*?",i) or re.findall("did not report .*?",i) or re.findall("did not show symptoms of .*?",i) or re.findall("negative .*?",i) or re.findall("without .*?",i)):
-                continue#word_text = keyword_processor.extract_keywords(i)
+                continue
             else:
                 temp = keyword_processor.extract_keywords(i)
                 if len(temp) != 0:
@@ -53,20 +52,9 @@ with open('symptoms_list.csv','a') as f:
                         list1.append(str(i))
         data1 = sorted(list(set(list1)))
         if len(data1) == 0:
-            data1.append('NaN')
-        elif len(data1) < 15:
-            for con in range(len(data1),16):
+            continue
+        elif len(data1) < 26:
+            for con in range(len(data1),27):
                 data1.append('NaN')
         f.write(",".join(data1))
         f.write("\n")
-
-
-'''
-        text = str(df8.values[x]).lower().split(" ")
-        text_data = " ".join(word_text)
-        text = str(text_data).split(" ")
-        for j in text:
-            if j in j_son:
-                list1.append(j)
-        data1 = sorted(list(set(list1)))
-'''
